@@ -24,12 +24,12 @@ public class Parakeet {
                     System.out.println(i+1+"."+list.get(i).toString());
                 }
                 System.out.println("____________________________________________________________");
+            }else {
+                System.out.println("____________________________________________________________");
+                System.out.println(command);
+                list.add(command);
+                System.out.println("____________________________________________________________");
             }
-            System.out.println("____________________________________________________________");
-            System.out.println(command);
-            list.add(command);
-            System.out.println("____________________________________________________________");
-
         }
         scanner.close();
 

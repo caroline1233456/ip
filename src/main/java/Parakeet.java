@@ -10,10 +10,14 @@ public class Parakeet {
 
             String command = scanner.nextLine();
             if (command.equalsIgnoreCase("bye")) {
+                System.out.println("____________________________________________________________");
                 System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("____________________________________________________________");
                 break;
             }
+            System.out.println("____________________________________________________________");
             System.out.println(command);
+            System.out.println("____________________________________________________________");
 
         }
         scanner.close();

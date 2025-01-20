@@ -9,7 +9,7 @@ public class Event extends Task{
     }
     @Override
     public String toString() {
-        String str = "[E] ";
+        String str = "[E]";
         str = str + super.toString() + " (from: " + from + " to: " + to + ")";
         return str;
     }

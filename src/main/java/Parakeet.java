@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Parakeet {
@@ -37,11 +38,39 @@ public class Parakeet {
                 System.out.println("ok, I have marked this task as not done yet");
                 System.out.println(list.get(taskIndex).toString());
             } else {
-                System.out.println("____________________________________________________________");
-                System.out.println(command);
-                Task task = new Task(false, command);
-                list.add(task);
-                System.out.println("____________________________________________________________");
+                if (command.startsWith(("todo"))) {
+                    String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
+                    String result = String.join(" ", splitCom);
+                    Task newTask = new Todo(false, result);
+                    list.add(newTask);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newTask.toString());
+                    System.out.println("Now you have " + list.size() +" in the list");
+                    System.out.println("____________________________________________________________");
+                }
+                if (command.startsWith(("deadline"))) {
+                    String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
+                    String result = String.join(" ", splitCom);
+                    Task newTask = new Deadline(false,result);
+                    list.add(newTask);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newTask.toString());
+                    System.out.println("Now you have " + list.size() +" in the list");
+                    System.out.println("____________________________________________________________");
+                }
+                if (command.startsWith(("event"))) {
+                    String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
+                    String result = String.join(" ", splitCom);
+                    Task newTask = new Event(false,result);
+                    list.add(newTask);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newTask.toString());
+                    System.out.println("Now you have " + list.size() +" in the list");
+                    System.out.println("____________________________________________________________");
+                }
 
             }
         }

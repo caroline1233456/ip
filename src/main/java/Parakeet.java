@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.regex.*;
 public class Parakeet {
 
 
@@ -46,30 +47,64 @@ public class Parakeet {
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task: ");
                     System.out.println(newTask.toString());
-                    System.out.println("Now you have " + list.size() +" in the list");
+                    System.out.println("Now you have " + list.size() +" tasks in the list");
                     System.out.println("____________________________________________________________");
                 }
                 if (command.startsWith(("deadline"))) {
+
+                    //split the command , remove the word deadline
                     String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
-                    String result = String.join(" ", splitCom);
-                    Task newTask = new Deadline(false,result);
-                    list.add(newTask);
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task: ");
-                    System.out.println(newTask.toString());
-                    System.out.println("Now you have " + list.size() +" in the list");
-                    System.out.println("____________________________________________________________");
+                    String commandOne= String.join(" ", splitCom);
+
+                    String deadlineRegex = "/by\\s+(.*)";
+                    String eventDescriptionRegex = "^(.*?)(?=\\s*/by|$)";
+
+                    Pattern patternDescription = Pattern.compile(eventDescriptionRegex);
+                    Pattern pattern = Pattern.compile(deadlineRegex);
+
+                    Matcher matcherDescription = patternDescription.matcher(commandOne);
+                    Matcher matcher = pattern.matcher(commandOne);
+                    if (matcher.find() && matcherDescription.find()) {
+                        String deadlineTime = matcher.group(1).trim();
+                        String description = matcherDescription.group(1).trim();
+                        Task newTask = new Deadline(false, description, deadlineTime);
+                        list.add(newTask);
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(newTask.toString());
+                        System.out.println("Now you have " + list.size() + " tasks in the list");
+                        System.out.println("____________________________________________________________");
+                    }
                 }
                 if (command.startsWith(("event"))) {
                     String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
-                    String result = String.join(" ", splitCom);
-                    Task newTask = new Event(false,result);
-                    list.add(newTask);
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task: ");
-                    System.out.println(newTask.toString());
-                    System.out.println("Now you have " + list.size() +" in the list");
-                    System.out.println("____________________________________________________________");
+                    String commandOne = String.join(" ", splitCom);
+
+                    String eventDescriptionRegex = "^(.*?)(?=\\s*/from|$)";
+                    String fromRegex = "/from\\s+(.*?)(?=\\s*/to|$)";
+                    String toRegex = "/to\\s+(.*)";
+
+                    Pattern patternDescription = Pattern.compile(eventDescriptionRegex);
+                    Pattern patternF = Pattern.compile(fromRegex);
+                    Pattern patternT = Pattern.compile(toRegex);
+
+                    Matcher matcherDescription = patternDescription.matcher(commandOne);
+                    Matcher matcherFrom = patternF.matcher(commandOne);
+                    Matcher matcherTo = patternT.matcher(commandOne);
+
+                    if(matcherFrom.find() && matcherTo.find() && matcherDescription.find()) {
+                        String from = matcherFrom.group(1).trim();
+                        String to = matcherTo.group(1).trim();
+                        String description = matcherDescription.group(1).trim();
+
+                        Task newTask = new Event(false, description, from, to);
+                        list.add(newTask);
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(newTask.toString());
+                        System.out.println("Now you have " + list.size() + " tasks in the list");
+                        System.out.println("____________________________________________________________");
+                    }
                 }
 
             }

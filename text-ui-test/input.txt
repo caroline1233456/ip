@@ -6,3 +6,10 @@ mark 2
 list
 unmark 2
 list
+deadline 
+event
+deadline /by Sunday
+event project meeting 
+blah
+delete 3
+bye

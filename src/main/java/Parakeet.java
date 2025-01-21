@@ -42,6 +42,16 @@ public class Parakeet {
                 System.out.println("Ok, I've marked this task as not done yet: ");
                 System.out.println(list.get(taskIndex).toString());
                 System.out.println("____________________________________________________________");
+            } else if (command.startsWith("delete")){
+                int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+                Task toDelete = list.get(taskIndex);
+                list.remove(taskIndex);
+                System.out.println("____________________________________________________________");
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(toDelete.toString());
+                System.out.println("Now you have " + list.size() +" tasks in the list");
+                System.out.println("____________________________________________________________");
+
             } else {
                 if (command.startsWith(("todo"))) {
                     String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
@@ -66,7 +76,7 @@ public class Parakeet {
                     String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
                     String commandOne= String.join(" ", splitCom);
 
-
+                    //check for invalid input like "deadline " or "deadline"
                     if(splitCom.length ==0 || String.join(" ",splitCom).trim().isEmpty()){
                         System.out.println("____________________________________________________________");
                         System.out.println("Sorry, the description of deadline can not be empty");

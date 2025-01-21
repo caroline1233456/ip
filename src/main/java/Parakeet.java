@@ -31,13 +31,17 @@ public class Parakeet {
             } else if (command.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
                 list.get(taskIndex).complete();
-                System.out.println("ok, I have marked this task as done");
+                System.out.println("____________________________________________________________");
+                System.out.println("Nice! I've marked this task as done: ");
                 System.out.println(list.get(taskIndex).toString());
+                System.out.println("____________________________________________________________");
             } else if (command.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
                 list.get(taskIndex).unDone();
-                System.out.println("ok, I have marked this task as not done yet");
+                System.out.println("____________________________________________________________");
+                System.out.println("Ok, I've marked this task as not done yet: ");
                 System.out.println(list.get(taskIndex).toString());
+                System.out.println("____________________________________________________________");
             } else {
                 if (command.startsWith(("todo"))) {
                     String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);

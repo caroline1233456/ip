@@ -45,6 +45,13 @@ public class Parakeet {
             } else {
                 if (command.startsWith(("todo"))) {
                     String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
+
+                    if(splitCom.length ==0 || String.join(" ",splitCom).trim().isEmpty()){
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Sorry, the description of todo can not be empty");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
                     String result = String.join(" ", splitCom);
                     Task newTask = new Todo(false, result);
                     list.add(newTask);
@@ -53,12 +60,19 @@ public class Parakeet {
                     System.out.println(newTask.toString());
                     System.out.println("Now you have " + list.size() +" tasks in the list");
                     System.out.println("____________________________________________________________");
-                }
-                if (command.startsWith(("deadline"))) {
+                }else if (command.startsWith(("deadline"))) {
 
                     //split the command , remove the word deadline
                     String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
                     String commandOne= String.join(" ", splitCom);
+
+
+                    if(splitCom.length ==0 || String.join(" ",splitCom).trim().isEmpty()){
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Sorry, the description of deadline can not be empty");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
 
                     String deadlineRegex = "/by\\s+(.*)";
                     String eventDescriptionRegex = "^(.*?)(?=\\s*/by|$)";
@@ -68,9 +82,21 @@ public class Parakeet {
 
                     Matcher matcherDescription = patternDescription.matcher(commandOne);
                     Matcher matcher = pattern.matcher(commandOne);
+
+
+
+
                     if (matcher.find() && matcherDescription.find()) {
                         String deadlineTime = matcher.group(1).trim();
                         String description = matcherDescription.group(1).trim();
+
+                        //check for input like "deadline /by Sunday"
+                        if(description.isEmpty()){
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Sorry, the description can not be empty");
+                            System.out.println("____________________________________________________________");
+                            continue;
+                        }
                         Task newTask = new Deadline(false, description, deadlineTime);
                         list.add(newTask);
                         System.out.println("____________________________________________________________");
@@ -78,11 +104,24 @@ public class Parakeet {
                         System.out.println(newTask.toString());
                         System.out.println("Now you have " + list.size() + " tasks in the list");
                         System.out.println("____________________________________________________________");
+                    }else {
+                        //check for case where deadline are not provided
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Sorry, this is invalid input, you need to provide description and deadline");
+                        System.out.println("____________________________________________________________");
+                        continue;
                     }
-                }
-                if (command.startsWith(("event"))) {
+                }else if (command.startsWith(("event"))) {
                     String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
                     String commandOne = String.join(" ", splitCom);
+
+                    //check for case like "event" or "event "
+                    if(splitCom.length ==0 || String.join(" ",splitCom).trim().isEmpty()){
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Sorry, the description of event can not be empty");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
 
                     String eventDescriptionRegex = "^(.*?)(?=\\s*/from|$)";
                     String fromRegex = "/from\\s+(.*?)(?=\\s*/to|$)";
@@ -96,10 +135,19 @@ public class Parakeet {
                     Matcher matcherFrom = patternF.matcher(commandOne);
                     Matcher matcherTo = patternT.matcher(commandOne);
 
+
+
                     if(matcherFrom.find() && matcherTo.find() && matcherDescription.find()) {
                         String from = matcherFrom.group(1).trim();
                         String to = matcherTo.group(1).trim();
                         String description = matcherDescription.group(1).trim();
+
+                        if(description.isEmpty()){
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Sorry, the description can not be empty");
+                            System.out.println("____________________________________________________________");
+                            continue;
+                        }
 
                         Task newTask = new Event(false, description, from, to);
                         list.add(newTask);
@@ -108,7 +156,18 @@ public class Parakeet {
                         System.out.println(newTask.toString());
                         System.out.println("Now you have " + list.size() + " tasks in the list");
                         System.out.println("____________________________________________________________");
+                    } else{
+                        //check if time and description are given
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Sorry, this is invalid input, you need to provide description and exact time");
+                        System.out.println("____________________________________________________________");
+                        continue;
+
                     }
+                }else {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Sorry, I don't understand what you mean");
+                    System.out.println("____________________________________________________________");
                 }
 
             }

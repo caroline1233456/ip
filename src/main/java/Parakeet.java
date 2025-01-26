@@ -6,7 +6,7 @@ public class Parakeet {
 
 
     public static void main(String[] args) {
-        ArrayList<Task> list = new ArrayList<>();
+        TaskList taskList = new TaskList();
         Parser parser = new Parser();
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Parakeet");
@@ -24,7 +24,7 @@ public class Parakeet {
                     System.out.println("____________________________________________________________");
                     break;
                 }
-                handleCommand(parsedCommand, list);
+                handleCommand(parsedCommand, taskList);
 
             } catch(InvalidInputError error) {
                 System.out.println("____________________________________________________________");
@@ -36,7 +36,7 @@ public class Parakeet {
         scanner.close();
     }
 
-    public static void handleCommand(ParsedCommand parsedCommand, ArrayList<Task> list) {
+    public static void handleCommand(ParsedCommand parsedCommand, TaskList taskList) {
         CommandType type = parsedCommand.getCommandType();
         int taskIndex = parsedCommand.getIndex();
         String description = parsedCommand.getDescription();
@@ -48,53 +48,51 @@ public class Parakeet {
             System.out.println("____________________________________________________________");
         } else if(type == CommandType.LIST) {
             System.out.println("____________________________________________________________");
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println(i + 1 + "." + list.get(i).toString());
-            }
+
+            System.out.println(taskList.toString());
             System.out.println("____________________________________________________________");
         }else if (type == CommandType.MARK) {
-                list.get(taskIndex).complete();
+                taskList.complete(taskIndex);
                 System.out.println("____________________________________________________________");
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(list.get(taskIndex).toString());
+                System.out.println(taskList.print(taskIndex));
                 System.out.println("____________________________________________________________");
         }else if (type == CommandType.UNMARK) {
-                list.get(taskIndex).unDone();
+                taskList.unDone(taskIndex);
                 System.out.println("____________________________________________________________");
                 System.out.println("Ok, I've marked this task as not done yet: ");
-                System.out.println(list.get(taskIndex).toString());
+                System.out.println(taskList.print(taskIndex));
                 System.out.println("____________________________________________________________");
         } else if (type == CommandType.DELETE) {
-            Task toDelete = list.get(taskIndex);
-            list.remove(taskIndex);
+            Task deletedTask = taskList.delete(taskIndex);
             System.out.println("____________________________________________________________");
             System.out.println("Noted. I've removed this task:");
-            System.out.println(toDelete.toString());
-            System.out.println("Now you have " + list.size() + " tasks in the list");
+            System.out.println(deletedTask.toString());
+            System.out.println("Now you have " + taskList.getSize() + " tasks in the list");
             System.out.println("____________________________________________________________");
         } else if (type == CommandType.TODO) {
             Task newTask = new Todo(false, description);
-            list.add(newTask);
+            taskList.add(newTask);
             System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task: ");
             System.out.println(newTask.toString());
-            System.out.println("Now you have " + list.size() +" tasks in the list");
+            System.out.println("Now you have " + taskList.getSize()+" tasks in the list");
             System.out.println("____________________________________________________________");
         } else if (type == CommandType.DEADLINE) {
                 Task newDeadline = new Deadline(false, description, timeOne);
-                list.add(newDeadline);
+                taskList.add(newDeadline);
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task: ");
                 System.out.println(newDeadline.toString());
-                System.out.println("Now you have " + list.size() + " tasks in the list");
+                System.out.println("Now you have " + taskList.getSize()+ " tasks in the list");
                 System.out.println("____________________________________________________________");
         } else if (type == CommandType.EVENT) {
             Task newEvent = new Event(false, description, timeOne, timeTwo);
-            list.add(newEvent);
+            taskList.add(newEvent);
             System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task: ");
             System.out.println(newEvent.toString());
-            System.out.println("Now you have " + list.size() + " tasks in the list");
+            System.out.println("Now you have " + taskList.getSize() + " tasks in the list");
             System.out.println("____________________________________________________________");
         } else {
             System.out.println("____________________________________________________________");

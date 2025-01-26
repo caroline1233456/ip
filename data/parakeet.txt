@@ -1,0 +1,2 @@
+T | 1 | borrow a book | 0 | 0 
+D | 0 | return the book | sun | 0 

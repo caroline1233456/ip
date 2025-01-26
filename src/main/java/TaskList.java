@@ -31,6 +31,14 @@ public class TaskList {
         this.taskList.add(newTask);
     }
 
+    public String convertToFileFormat() {
+        String str = "";
+        for (int i =0; i < taskList.size(); i++) {
+            str = str + taskList.get(i).convertToFileFormat() + System.lineSeparator();
+        }
+        return str;
+    }
+
     @Override
     public String toString() {
         String str = "";

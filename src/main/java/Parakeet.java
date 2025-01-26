@@ -7,6 +7,9 @@ public class Parakeet {
 
     public static void main(String[] args) {
         TaskList taskList = new TaskList();
+        Storage storage = new Storage();
+        storage.readFromFile(taskList);
+
         Parser parser = new Parser();
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Parakeet");
@@ -33,6 +36,8 @@ public class Parakeet {
             }
 
         }
+        storage.writeToFile(taskList);
+        System.out.println("Task list has been saved");
         scanner.close();
     }
 

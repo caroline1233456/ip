@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -9,9 +10,24 @@ public class Storage {
     public Storage() {
         Path path = Paths.get("data", "parakeet.txt");
         this.file = path.toFile();
-        if (!file.exists()) {
-            System.out.println("the file does not exist");
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            System.out.println("directory creation unsuccessful");
         }
+
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + file.getAbsolutePath());
+                } else {
+                    System.out.println("File could not be created");
+                }
+            } catch (IOException e) {
+                System.out.println("Failed to create file: " + e.getMessage());
+            }
+        }
+
         try {
             this.scanner = new Scanner(file);
         } catch (FileNotFoundException e) {

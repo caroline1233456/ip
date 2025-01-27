@@ -1,10 +1,13 @@
-public class Task {
-    private boolean isDone;
-    private String task;
+public abstract class Task {
+    public boolean isDone;
+    public String description;
 
-    public Task(boolean isDone, String task) {
+    private TaskType taskType;
+
+    public Task(boolean isDone, String description, TaskType taskType) {
         this.isDone = isDone;
-        this.task = task;
+        this.description = description;
+        this.taskType = taskType;
     }
 
     public void complete() {
@@ -15,13 +18,15 @@ public class Task {
         this.isDone = false;
     }
 
+    public abstract String convertToFileFormat();
+
     @Override
     public String toString() {
         String str = "[";
         if(isDone) {
             str = str + "X";
         }
-        str = str + "] " + task;
+        str = str + "] " + description;
         return str;
     }
 }

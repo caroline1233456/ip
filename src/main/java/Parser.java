@@ -1,7 +1,11 @@
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Parser {
     public ArrayList<Task> list;
@@ -62,16 +66,16 @@ public class Parser {
                 String eventDescriptionRegex = "^(.*?)(?=\\s*/by|$)";
 
                 Pattern patternDescription = Pattern.compile(eventDescriptionRegex);
-                Pattern pattern = Pattern.compile(deadlineRegex);
+                Pattern patternDeadline = Pattern.compile(deadlineRegex);
 
                 Matcher matcherDescription = patternDescription.matcher(commandOne);
-                Matcher matcher = pattern.matcher(commandOne);
+                Matcher matcherDeadline = patternDeadline.matcher(commandOne);
 
 
 
 
-                if (matcher.find() && matcherDescription.find()) {
-                    String deadlineTime = matcher.group(1).trim();
+                if (matcherDeadline.find() && matcherDescription.find()) {
+                    String deadlineTime = matcherDeadline.group(1).trim();
                     String description = matcherDescription.group(1).trim();
 
                     //check for input like "deadline /by Sunday"
@@ -79,7 +83,15 @@ public class Parser {
                         throw new InvalidInputError("Sorry, the description can not be empty");
 
                     }
-                    return new ParsedCommand(CommandType.DEADLINE,0,description,deadlineTime,null);
+                    try {
+                        LocalDate deadline = LocalDate.parse(deadlineTime);
+                        return new ParsedCommand(CommandType.DEADLINE, 0, description, deadline, null);
+                    } catch (DateTimeException e) {
+                        throw new InvalidInputError(
+                                "Error: Invalid date format or invalid date. valid: yyyy-MM-dd.");
+
+                    }
+
 
                 } else {
                     //check for case where deadline are not provided
@@ -116,7 +128,17 @@ public class Parser {
                     if (description.isEmpty()) {
                         throw new InvalidInputError("Sorry, the description can not be empty");
                     }
-                    return new ParsedCommand(CommandType.EVENT,0,description,from,to);
+
+                    try {
+                        LocalDate timeFrom = LocalDate.parse(from);
+                        LocalDate timeTo = LocalDate.parse(to);
+                        return new ParsedCommand(CommandType.EVENT, 0, description, timeFrom, timeTo);
+                    } catch (DateTimeException e) {
+                        throw new InvalidInputError(
+                                "Error: Invalid date format or invalid date. valid: yyyy-MM-dd.");
+
+                    }
+
                 } else {
                     //check if time and description are given
                     throw new InvalidInputError("Sorry, this is invalid input, you need to provide description and exact time");

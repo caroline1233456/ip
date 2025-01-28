@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -84,11 +84,12 @@ public class Parser {
 
                     }
                     try {
-                        LocalDate deadline = LocalDate.parse(deadlineTime);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime deadline = LocalDateTime.parse(deadlineTime, formatter);
                         return new ParsedCommand(CommandType.DEADLINE, 0, description, deadline, null);
                     } catch (DateTimeException e) {
                         throw new InvalidInputError(
-                                "Error: Invalid date format or invalid date. valid: yyyy-MM-dd.");
+                                "Error: Invalid date format or invalid date. valid: yyyy-MM-dd HH:mm.");
 
                     }
 
@@ -130,12 +131,13 @@ public class Parser {
                     }
 
                     try {
-                        LocalDate timeFrom = LocalDate.parse(from);
-                        LocalDate timeTo = LocalDate.parse(to);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime timeFrom = LocalDateTime.parse(from, formatter);
+                        LocalDateTime timeTo = LocalDateTime.parse(to, formatter);
                         return new ParsedCommand(CommandType.EVENT, 0, description, timeFrom, timeTo);
                     } catch (DateTimeException e) {
                         throw new InvalidInputError(
-                                "Error: Invalid date format or invalid date. valid: yyyy-MM-dd.");
+                                "Error: Invalid date format or invalid date. valid: yyyy-MM-dd HH:mm.");
 
                     }
 

@@ -2,7 +2,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -49,19 +49,19 @@ public class Storage {
             String timeOne = components[3].trim();
             String timeTwo = components[4].trim();//all the task regardless of type follows format: type|complete|description|start date|endDate
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
 
             if (taskType.equals("T")) {
                 Task newTask = new Todo(isCompleted, description);
                 taskList.add(newTask);
             } else if (taskType.equals("D")) {
-                LocalDate timeOneDate = LocalDate.parse(timeOne, formatter);
+                LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
                 Task newTask = new Deadline(isCompleted, description, timeOneDate);
                 taskList.add(newTask);
             } else if (taskType.equals("E")) {
-                LocalDate timeOneDate = LocalDate.parse(timeOne, formatter);
-                LocalDate timeTwoDate = LocalDate.parse(timeTwo, formatter);
+                LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
+                LocalDateTime timeTwoDate = LocalDateTime.parse(timeTwo, formatter);
                 Task newTask = new Event(isCompleted, description, timeOneDate, timeTwoDate);
                 taskList.add(newTask);
             } else {

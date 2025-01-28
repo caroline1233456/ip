@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -9,11 +9,11 @@ public class ParsedCommand {
     //for event description
     private String description;
     //for deadline or event start time
-    private  LocalDate timeOne;
+    private  LocalDateTime timeOne;
     //for event end time
-    private LocalDate timeTwo;
+    private LocalDateTime timeTwo;
 
-    public ParsedCommand(CommandType commandType, int index, String description, LocalDate timeOne, LocalDate timeTwo) {
+    public ParsedCommand(CommandType commandType, int index, String description, LocalDateTime timeOne, LocalDateTime timeTwo) {
         this.commandType = commandType;
         this.index = index;
         this.description = description;
@@ -33,11 +33,11 @@ public class ParsedCommand {
         return this.description;
     }
 
-    public LocalDate getTimeOne() {
+    public LocalDateTime getTimeOne() {
         return this.timeOne;
     }
 
-    public LocalDate getTimeTwo() {
+    public LocalDateTime getTimeTwo() {
         return this.timeTwo;
     }
 

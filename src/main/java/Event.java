@@ -1,7 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task{
-    private String from;
-    private String to;
-    public Event(boolean isDone, String description, String from, String to) {
+    private LocalDateTime from;
+    private LocalDateTime to;
+    public Event(boolean isDone, String description, LocalDateTime from, LocalDateTime to) {
 
         super(isDone, description, TaskType.EVENT);
         this.from = from;
@@ -9,13 +12,18 @@ public class Event extends Task{
     }
     @Override
     public String convertToFileFormat() {
-        String str = "E | " + (super.isDone? "1": "0") + " | " + super.description + " | " + this.from + " | " + this.to;
+        String str = "E | " + (super.isDone? "1": "0") + " | " + super.description
+                + " | " + this.from. format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + " | "
+                + this.to. format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
         return str;
     }
+
     @Override
     public String toString() {
         String str = "[E]";
-        str = str + super.toString() + " (from: " + from + " to: " + to + ")";
+        str = str + super.toString() + " (from: " + from. format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                + " to: " + to. format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                + ")";
         return str;
     }
 }

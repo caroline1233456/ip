@@ -2,6 +2,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Storage {
@@ -39,20 +41,28 @@ public class Storage {
     public void readFromFile(TaskList taskList) {
         while(this.scanner.hasNextLine()) {
             String line = scanner.nextLine();
+
             String[] components = line.split("\\|");
             String taskType = components[0].trim();
             boolean isCompleted = components[1].trim().equals("1");//completed is 1 and not completed is 0
             String description = components[2].trim();
             String timeOne = components[3].trim();
             String timeTwo = components[4].trim();//all the task regardless of type follows format: type|complete|description|start date|endDate
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
+
             if (taskType.equals("T")) {
                 Task newTask = new Todo(isCompleted, description);
                 taskList.add(newTask);
             } else if (taskType.equals("D")) {
-                Task newTask = new Deadline(isCompleted, description, timeOne);
+                LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
+                Task newTask = new Deadline(isCompleted, description, timeOneDate);
                 taskList.add(newTask);
             } else if (taskType.equals("E")) {
-                Task newTask = new Event(isCompleted, description, timeOne, timeTwo);
+                LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
+                LocalDateTime timeTwoDate = LocalDateTime.parse(timeTwo, formatter);
+                Task newTask = new Event(isCompleted, description, timeOneDate, timeTwoDate);
                 taskList.add(newTask);
             } else {
                 System.out.println("Error, no event type");

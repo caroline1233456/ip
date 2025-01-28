@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -45,8 +46,8 @@ public class Parakeet {
         CommandType type = parsedCommand.getCommandType();
         int taskIndex = parsedCommand.getIndex();
         String description = parsedCommand.getDescription();
-        String timeOne = parsedCommand.getTimeOne();
-        String timeTwo = parsedCommand.getTimeTwo();
+        LocalDateTime timeOne = parsedCommand.getTimeOne();
+        LocalDateTime timeTwo = parsedCommand.getTimeTwo();
         if (type == CommandType.BYE) {
             System.out.println("____________________________________________________________");
             System.out.println("Bye. Hope to see you again soon!");

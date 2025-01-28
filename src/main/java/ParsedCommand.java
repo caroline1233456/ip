@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class ParsedCommand {
     private CommandType commandType;
     //index is for mark, unmark and delete
@@ -5,11 +9,11 @@ public class ParsedCommand {
     //for event description
     private String description;
     //for deadline or event start time
-    private String timeOne;
+    private  LocalDateTime timeOne;
     //for event end time
-    private String timeTwo;
+    private LocalDateTime timeTwo;
 
-    public ParsedCommand(CommandType commandType, int index, String description, String timeOne, String timeTwo) {
+    public ParsedCommand(CommandType commandType, int index, String description, LocalDateTime timeOne, LocalDateTime timeTwo) {
         this.commandType = commandType;
         this.index = index;
         this.description = description;
@@ -29,11 +33,11 @@ public class ParsedCommand {
         return this.description;
     }
 
-    public String getTimeOne() {
+    public LocalDateTime getTimeOne() {
         return this.timeOne;
     }
 
-    public String getTimeTwo() {
+    public LocalDateTime getTimeTwo() {
         return this.timeTwo;
     }
 

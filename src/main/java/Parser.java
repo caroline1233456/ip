@@ -14,41 +14,33 @@ public class Parser {
 
     }
 
-    public ParsedCommand parse(String command) throws InvalidInputError {
+    public Command parse(String command) throws InvalidInputError {
         if (command.equalsIgnoreCase("bye")) {
-            ParsedCommand parsedCommand =
-                    new ParsedCommand(CommandType.BYE,0,null,null,null);
-            return parsedCommand;
+            return new ExitCommand();
         }else if (command.equalsIgnoreCase("list")) {
-            ParsedCommand parsedCommand =
-                    new ParsedCommand(CommandType.LIST,0,null,null,null);
-            return parsedCommand;
+
+            return new ListCommand();
         } else if (command.startsWith("mark")) {
             int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
-            ParsedCommand parsedCommand =
-                    new ParsedCommand(CommandType.MARK,taskIndex,null,null,null);
-            return parsedCommand;
+            return new MarkCommand(taskIndex);
         } else if (command.startsWith("unmark")) {
             int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
-            ParsedCommand parsedCommand =
-                    new ParsedCommand(CommandType.UNMARK,taskIndex,null,null,null);
-            return parsedCommand;
+            return new UnmarkCommand(taskIndex);
         } else if (command.startsWith("delete")) {
             int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
-            ParsedCommand parsedCommand =
-                    new ParsedCommand(CommandType.DELETE,taskIndex,null,null,null);
-            return parsedCommand;
+            return new DeleteCommand(taskIndex);
 
         } else {
-            //event
+            //event, AddCommand part
             if (command.startsWith(("todo"))) {
                 String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
 
                 if(splitCom.length ==0 || String.join(" ",splitCom).trim().isEmpty()){
                     throw new InvalidInputError("Sorry, the description of todo can not be empty");
                 }
-                String result = String.join(" ", splitCom);
-                return new ParsedCommand(CommandType.TODO,0,result,null,null);
+
+                String description = String.join(" ", splitCom);
+                return new TodoCommand(description);
 
             }else if (command.startsWith(("deadline"))) {
 
@@ -86,14 +78,11 @@ public class Parser {
                     try {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                         LocalDateTime deadline = LocalDateTime.parse(deadlineTime, formatter);
-                        return new ParsedCommand(CommandType.DEADLINE, 0, description, deadline, null);
+                        return new DeadlineCommand(description, deadline);
                     } catch (DateTimeException e) {
                         throw new InvalidInputError(
                                 "Error: Invalid date format or invalid date. valid: yyyy-MM-dd HH:mm.");
-
                     }
-
-
                 } else {
                     //check for case where deadline are not provided
                     throw new InvalidInputError("Sorry, this is invalid input, you need to provide description and deadline");
@@ -134,7 +123,7 @@ public class Parser {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                         LocalDateTime timeFrom = LocalDateTime.parse(from, formatter);
                         LocalDateTime timeTo = LocalDateTime.parse(to, formatter);
-                        return new ParsedCommand(CommandType.EVENT, 0, description, timeFrom, timeTo);
+                        return new EventCommand(description, timeFrom, timeTo);
                     } catch (DateTimeException e) {
                         throw new InvalidInputError(
                                 "Error: Invalid date format or invalid date. valid: yyyy-MM-dd HH:mm.");

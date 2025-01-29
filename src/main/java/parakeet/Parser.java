@@ -1,3 +1,9 @@
+package parakeet;
+
+import parakeet.InvalidInputError;
+import parakeet.command.*;
+import parakeet.task.Task;
+
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -5,7 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Parser {
     public ArrayList<Task> list;
@@ -31,7 +36,7 @@ public class Parser {
             return new DeleteCommand(taskIndex);
 
         } else {
-            //event, AddCommand part
+            //event, parakeet.command.AddCommand part
             if (command.startsWith(("todo"))) {
                 String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
 

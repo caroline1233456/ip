@@ -1,3 +1,11 @@
+package parakeet.command;
+
+import parakeet.Storage;
+import parakeet.TaskList;
+import parakeet.Ui;
+import parakeet.task.Deadline;
+import parakeet.task.Task;
+
 import java.time.LocalDateTime;
 
 public class DeadlineCommand extends AddCommand {
@@ -9,7 +17,7 @@ public class DeadlineCommand extends AddCommand {
         this.description = description;
     }
     @Override
-    public void execute(TaskList taskList,Ui ui,Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         Task newDeadline = new Deadline(false, description, deadline);
         taskList.add(newDeadline);
         ui.printLine();

@@ -1,3 +1,5 @@
+package parakeet;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -18,7 +20,7 @@ public class Ui {
 
     public void printWelcome() {
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Parakeet");
+        System.out.println("Hello! I'm parakeet.Parakeet");
         System.out.println("What can I do for you?");
 
         System.out.println("____________________________________________________________");

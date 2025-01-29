@@ -1,8 +1,8 @@
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.regex.*;
+package parakeet;
+
+import parakeet.command.Command;
+import parakeet.command.ExitCommand;
+
 public class Parakeet {
 
 

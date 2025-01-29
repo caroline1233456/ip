@@ -1,4 +1,11 @@
-public class DeleteCommand extends Command{
+package parakeet.command;
+
+import parakeet.Storage;
+import parakeet.TaskList;
+import parakeet.Ui;
+import parakeet.task.Deadline;
+import parakeet.task.Task;
+public class DeleteCommand extends Command {
     private int taskIndex;
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;

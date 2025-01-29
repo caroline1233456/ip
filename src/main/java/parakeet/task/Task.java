@@ -1,3 +1,5 @@
+package parakeet.task;
+
 public abstract class Task {
     public boolean isDone;
     public String description;

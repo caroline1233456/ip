@@ -1,3 +1,10 @@
+package parakeet;
+
+import parakeet.task.Deadline;
+import parakeet.task.Event;
+import parakeet.task.Task;
+import parakeet.task.Todo;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;

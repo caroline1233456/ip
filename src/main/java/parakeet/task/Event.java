@@ -1,7 +1,12 @@
+package parakeet.task;
+
+import parakeet.task.Task;
+import parakeet.task.TaskType;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
     public Event(boolean isDone, String description, LocalDateTime from, LocalDateTime to) {

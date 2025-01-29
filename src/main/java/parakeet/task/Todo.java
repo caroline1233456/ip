@@ -1,4 +1,8 @@
-public class Todo extends Task{
+package parakeet.task;
+
+import parakeet.task.Task;
+
+public class Todo extends Task {
     public Todo(boolean isDone, String description) {
         super(isDone, description, TaskType.TODO);
     }

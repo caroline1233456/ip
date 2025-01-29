@@ -1,7 +1,12 @@
+package parakeet.task;
+
+import parakeet.task.Task;
+import parakeet.task.TaskType;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDateTime deadline;
     public Deadline(boolean isDone, String description, LocalDateTime deadline) {
 

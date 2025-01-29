@@ -1,6 +1,14 @@
-import java.time.LocalDateTime;
+package parakeet.command;
 
-public class EventCommand extends AddCommand{
+import parakeet.command.AddCommand;
+
+import java.time.LocalDateTime;
+import parakeet.Storage;
+import parakeet.TaskList;
+import parakeet.Ui;
+import parakeet.task.Event;
+import parakeet.task.Task;
+public class EventCommand extends AddCommand {
     private String description;
     private LocalDateTime startTime;
     private LocalDateTime endTime;

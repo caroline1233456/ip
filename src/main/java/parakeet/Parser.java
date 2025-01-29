@@ -35,6 +35,15 @@ public class Parser {
             int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
             return new DeleteCommand(taskIndex);
 
+        } else if (command.startsWith("find")){
+            String keyword = command.substring(5).trim();
+
+            if(keyword.isEmpty()) {
+                throw new InvalidInputError("the search keyword cannot be empty");
+            }
+            return new FindCommand(keyword);
+
+
         } else {
             //event, parakeet.command.AddCommand part
             if (command.startsWith(("todo"))) {

@@ -43,6 +43,16 @@ public class TaskList {
         return str;
     }
 
+    public TaskList find(String keyword) {
+        TaskList subList = new TaskList();
+        for(int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).contains(keyword)) {
+                subList.add(taskList.get(i));
+            }
+        }
+        return subList;
+    }
+
     @Override
     public String toString() {
         String str = "";

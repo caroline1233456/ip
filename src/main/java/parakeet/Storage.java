@@ -13,6 +13,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class is responsible for reading and writing task data
+ * to a file. The data is stored in a text file at a specified location.
+ * The class handles creating necessary directories and files, reading data
+ * from the file, and writing task data back to the file.
+ */
 public class Storage {
     private Path path;
     private File file;
@@ -46,6 +52,21 @@ public class Storage {
 
     }
 
+    /**
+     * Reads the task data from the file and adds the tasks to the provided
+     * {@code TaskList}. The file format should be:
+     * <pre>
+     * type|completed|description|start date|end date
+     * </pre>
+     * where type is one of the following:
+     * <ul>
+     *     <li>T for Todo</li>
+     *     <li>D for Deadline</li>
+     *     <li>E for Event</li>
+     * </ul>
+     *
+     * @param taskList the list of tasks to which the data will be added.
+     */
     public void readFromFile(TaskList taskList) {
         while(this.scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -78,6 +99,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the tasks in the provided {@code TaskList} to the file in a format
+     * that can be read later. The task list is converted to a file format where
+     * each task is represented by a line in the following format:
+     * <pre>
+     * type|completed|description|start date|end date
+     * </pre>
+     *
+     * @param taskList the list of tasks to be written to the file.
+     */
     public void writeToFile(TaskList taskList) {
         try {
 

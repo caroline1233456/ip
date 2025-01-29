@@ -14,13 +14,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Storage {
+    private Path path;
     private File file;
     private Scanner scanner;
-    public Storage() {
-        Path path = Paths.get("data", "parakeet.txt");
+    public Storage(Path path) {
+        this.path = Paths.get("data", "parakeet.txt");
         this.file = path.toFile();
         try {
-            Files.createDirectories(path.getParent());
+            Files.createDirectories(this.path.getParent());
         } catch (IOException e) {
             System.out.println("directory creation unsuccessful");
         }

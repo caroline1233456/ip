@@ -3,14 +3,27 @@ package parakeet;
 import parakeet.command.Command;
 import parakeet.command.ExitCommand;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
 public class Parakeet {
+    private Storage storage;
+    private File file;
+    private TaskList taskList;
+    private Ui ui;
+    public Parakeet() {
+        this.ui = new Ui();
+        this.taskList = new TaskList();
+        Path path = Paths.get("data", "parakeet.txt");
+        this.file = path.toFile();
+        this.storage = new Storage(path);
+    }
 
-
-    public static void main(String[] args) {
-        TaskList taskList = new TaskList();
-        Storage storage = new Storage();
+    public void run() {
         storage.readFromFile(taskList);
-        Ui ui = new Ui();
         Parser parser = new Parser();
         ui.printWelcome();
         while (true) {
@@ -31,6 +44,10 @@ public class Parakeet {
 
         }
 
+    }
+
+    public static void main(String[] args) {
+        new Parakeet().run();
     }
 
 

@@ -76,7 +76,8 @@ public class Storage {
             boolean isCompleted = components[1].trim().equals("1");//completed is 1 and not completed is 0
             String description = components[2].trim();
             String timeOne = components[3].trim();
-            String timeTwo = components[4].trim();//all the task regardless of type follows format: type|complete|description|start date|endDate
+            //all the task regardless of type follows format: type|complete|description|start date|endDate
+            String timeTwo = components[4].trim();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 

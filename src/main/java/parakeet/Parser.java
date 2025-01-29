@@ -65,9 +65,10 @@ public class Parser {
         } else {
             //event, parakeet.command.AddCommand part
             if (command.startsWith(("todo"))) {
-                String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
+                String[] splitCom = Arrays.copyOfRange(command.split(" "),
+                        1, command.split(" ").length);
 
-                if(splitCom.length ==0 || String.join(" ",splitCom).trim().isEmpty()){
+                if(splitCom.length == 0 || String.join(" ", splitCom).trim().isEmpty()) {
                     throw new InvalidInputError("Sorry, the description of todo can not be empty");
                 }
 
@@ -77,11 +78,12 @@ public class Parser {
             }else if (command.startsWith(("deadline"))) {
 
                 //split the command , remove the word deadline
-                String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
+                String[] splitCom = Arrays.copyOfRange(command.split(" "),1,
+                        command.split(" ").length);
                 String commandOne= String.join(" ", splitCom);
 
                 //check for invalid input like "deadline " or "deadline"
-                if(splitCom.length ==0 || String.join(" ", splitCom).trim().isEmpty()){
+                if(splitCom.length == 0 || String.join(" ", splitCom).trim().isEmpty()) {
                     throw new InvalidInputError("Sorry, the description of deadline can not be empty");
 
                 }
@@ -94,9 +96,6 @@ public class Parser {
 
                 Matcher matcherDescription = patternDescription.matcher(commandOne);
                 Matcher matcherDeadline = patternDeadline.matcher(commandOne);
-
-
-
 
                 if (matcherDeadline.find() && matcherDescription.find()) {
                     String deadlineTime = matcherDeadline.group(1).trim();
@@ -112,15 +111,17 @@ public class Parser {
                         LocalDateTime deadline = LocalDateTime.parse(deadlineTime, formatter);
                         return new DeadlineCommand(description, deadline);
                     } catch (DateTimeException e) {
-                        throw new InvalidInputError(
-                                "Error: Invalid date format or invalid date. valid: yyyy-MM-dd HH:mm.");
+                        throw new InvalidInputError("Error: Invalid date format or invalid date." +
+                                " valid: yyyy-MM-dd HH:mm.");
                     }
                 } else {
                     //check for case where deadline are not provided
-                    throw new InvalidInputError("Sorry, this is invalid input, you need to provide description and deadline");
+                    throw new InvalidInputError("Sorry, this is invalid input," +
+                            " you need to provide description and deadline");
                 }
             } else if (command.startsWith(("event"))) {
-                String[] splitCom = Arrays.copyOfRange(command.split(" "),1, command.split(" ").length);
+                String[] splitCom = Arrays.copyOfRange(command.split(" "),1,
+                        command.split(" ").length);
                 String commandOne = String.join(" ", splitCom);
 
                 //check for case like "event" or "event "
@@ -139,8 +140,6 @@ public class Parser {
                 Matcher matcherDescription = patternDescription.matcher(commandOne);
                 Matcher matcherFrom = patternF.matcher(commandOne);
                 Matcher matcherTo = patternT.matcher(commandOne);
-
-
 
                 if (matcherFrom.find() && matcherTo.find() && matcherDescription.find()) {
                     String from = matcherFrom.group(1).trim();

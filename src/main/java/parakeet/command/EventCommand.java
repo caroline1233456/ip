@@ -18,6 +18,17 @@ public class EventCommand extends AddCommand {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    /**
+     * Executes the command to add an Event task to the task list.
+     * This method creates a new {@link Event} task with the specified description,
+     * start time, and end time, adds it to the task list, and updates the UI with
+     * the details of the new task and the total number of tasks.
+     *
+     * @param taskList the list of tasks to add the event to.
+     * @param ui the UI that handles the display of messages to the user.
+     * @param storage the storage used to save the tasks (not used in this method).
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         Task newEvent = new Event(false, description, startTime, endTime);

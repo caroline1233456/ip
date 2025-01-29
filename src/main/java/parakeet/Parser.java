@@ -1,6 +1,5 @@
 package parakeet;
 
-import parakeet.InvalidInputError;
 import parakeet.command.*;
 import parakeet.task.Task;
 
@@ -12,6 +11,20 @@ import java.util.regex.Pattern;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Parser class is responsible for parsing user input commands and creating
+ * appropriate command objects to interact with the system.
+ * It can handle various commands such as "bye", "list", "mark", "unmark",
+ * "delete", as well as commands related to adding tasks, such as "todo", "event",
+ * and "deadline". It also validates the correctness of the input.
+ *
+ * <p>It parses input for task descriptions, dates, and times, and ensures that
+ * all necessary information is provided in the correct format.</p>
+ *
+ * @author Your Name
+ * @version 1.0
+ * @since 2025-01-29
+ */
 public class Parser {
     public ArrayList<Task> list;
     public Parser() {
@@ -19,6 +32,20 @@ public class Parser {
 
     }
 
+    /**
+     * Parses a given command string and returns the appropriate Command object.
+     * It handles various command types, such as:
+     * - "bye" for exiting the application
+     * - "list" for listing tasks
+     * - "mark" for marking a task as done
+     * - "unmark" for unmarking a task
+     * - "delete" for deleting a task
+     * - "todo", "deadline", and "event" for adding tasks
+     *
+     * @param command The input command string to be parsed.
+     * @return The Command object corresponding to the parsed input.
+     * @throws InvalidInputError If the command is invalid or in an incorrect format.
+     */
     public Command parse(String command) throws InvalidInputError {
         if (command.equalsIgnoreCase("bye")) {
             return new ExitCommand();

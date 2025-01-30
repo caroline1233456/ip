@@ -3,11 +3,10 @@ package parakeet;
 import parakeet.command.Command;
 import parakeet.command.ExitCommand;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
+
 
 /**
  * The Parakeet class represents the main application for managing tasks.
@@ -24,14 +23,13 @@ import java.util.Scanner;
  */
 public class Parakeet {
     private Storage storage;
-    private File file;
+
     private TaskList taskList;
     private Ui ui;
     public Parakeet() {
         this.ui = new Ui();
         this.taskList = new TaskList();
         Path path = Paths.get("data", "parakeet.txt");
-        this.file = path.toFile();
         this.storage = new Storage(path);
     }
 

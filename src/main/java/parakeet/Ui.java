@@ -9,15 +9,26 @@ public class Ui {
         this.scanner = scanner;
     }
 
+    /**
+     * Print the given message on the screen.
+     *
+     * @param message the String you want to print on Screen.
+     */
     public void printMessage(String message) {
         System.out.println(message);
 
     }
 
+    /**
+     * Print a line on the screen.
+     */
     public void printLine() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Print the welcome message on the screen.
+     */
     public void printWelcome() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm parakeet.Parakeet");

@@ -20,10 +20,10 @@ public class ExitCommand extends Command {
      * @param storage the storage used to save the tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printExit();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         storage.writeToFile(taskList);
-        ui.printMessage("parakeet.task.Task list has been saved");
-        ui.colseScanner();
+        String response = "Bye. Hope to see you again soon! \nTask list has been saved";
+        return response;
+
     }
 }

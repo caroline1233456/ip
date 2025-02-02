@@ -25,13 +25,14 @@ public class TodoCommand extends AddCommand {
      * @param storage the storage used to save the tasks (not used in this method).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         Task newTask = new Todo(false, this.taskDescription);
         taskList.add(newTask);
-        ui.printLine();
-        ui.printMessage("Got it. I've added this task: ");
-        ui.printMessage(newTask.toString());
-        ui.printMessage("Now you have " + taskList.getSize() + " tasks in the list");
-        ui.printLine();
+
+        String response = "Got it. I've added this task: \n" + newTask.toString() + "\n"
+                + "Now you have " + taskList.getSize()+ " tasks in the list";
+        return response;
+
+
     }
 }

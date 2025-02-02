@@ -30,11 +30,8 @@ public class Ui {
      * Print the welcome message on the screen.
      */
     public void printWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm parakeet.Parakeet");
-        System.out.println("What can I do for you?");
+        String response = "Hello! I'm parakeet.Parakeet\n What can I do for you?";
 
-        System.out.println("____________________________________________________________");
     }
     public String readCommand() {
         String command = this.scanner.nextLine();

@@ -13,10 +13,10 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         TaskList subList = taskList.find(this.keyword);
-        ui.printLine();
-        ui.printMessage(subList.toString());
-        ui.printLine();
+        String response = subList.toString();
+        return response;
+
     }
 }

@@ -22,12 +22,10 @@ public class DeleteCommand extends Command {
      * @param storage The storage used to save the tasks (not used in this method).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         Task deletedTask = taskList.delete(taskIndex);
-        ui.printLine();
-        ui.printMessage("Noted. I've removed this task:");
-        ui.printMessage(deletedTask.toString());
-        ui.printMessage("Now you have " + taskList.getSize() + " tasks in the list");
-        ui.printLine();
+        String response = "Noted. I've removed this task: \n" + deletedTask.toString() + "\n"
+                + "Now you have " + taskList.getSize()+ " tasks in the list";
+        return response;
     }
 }

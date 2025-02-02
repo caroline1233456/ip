@@ -29,13 +29,11 @@ public class DeadlineCommand extends AddCommand {
      * @param storage the storage used to save the tasks (not used in this method).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         Task newDeadline = new Deadline(false, description, deadline);
         taskList.add(newDeadline);
-        ui.printLine();
-        ui.printMessage("Got it. I've added this task: ");
-        ui.printMessage(newDeadline.toString());
-        ui.printMessage("Now you have " + taskList.getSize()+ " tasks in the list");
-        ui.printLine();
+        String response = "Got it. I've added this task: \n" + newDeadline.toString() + "\n"
+                + "Now you have " + taskList.getSize()+ " tasks in the list";
+        return response;
     }
 }

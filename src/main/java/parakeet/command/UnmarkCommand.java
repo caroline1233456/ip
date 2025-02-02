@@ -20,11 +20,11 @@ public class UnmarkCommand extends Command {
      * @param storage The storage used to save the tasks (not used in this method).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.unDone(taskIndex);
-        ui.printLine();
-        ui.printMessage("Ok, I've marked this task as not done yet: ");
-        ui.printMessage(taskList.print(taskIndex));
-        ui.printLine();
+
+        String response = "Ok, I've marked this task as not done yet: \n" + taskList.print(taskIndex);
+        return response;
+
     }
 }

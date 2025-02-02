@@ -23,7 +23,7 @@ import java.nio.file.Paths;
  */
 public class Parakeet {
     private Storage storage;
-
+    private Parser parser;
     private TaskList taskList;
     private Ui ui;
     public Parakeet() {
@@ -31,6 +31,9 @@ public class Parakeet {
         this.taskList = new TaskList();
         Path path = Paths.get("data", "parakeet.txt");
         this.storage = new Storage(path);
+        storage.readFromFile(taskList);
+        this.parser = new Parser();
+
     }
 
     /**
@@ -41,38 +44,30 @@ public class Parakeet {
      * - Executes the corresponding command based on user input
      * - Terminates when the ExitCommand is issued
      */
-    public void run() {
-        storage.readFromFile(taskList);
-        Parser parser = new Parser();
-        ui.printWelcome();
-        while (true) {
-            String command = ui.readCommand();
+    public String run(String input) {
+           String command = input;
             try {
                 Command parsedCommand = parser.parse(command);
-                if (parsedCommand instanceof ExitCommand) {
-                    parsedCommand.execute(taskList, ui, storage);
-                    break;
-                }
-                parsedCommand.execute(taskList, ui, storage);
+                return parsedCommand.execute(taskList, ui, storage);
 
             } catch(InvalidInputError error) {
-                ui.printLine();
-                ui.printMessage(error.getMessage());
-                ui.printLine();
+               return error.getMessage();
             }
 
-        }
+
 
     }
 
+
+    public String getResponse(String input) {
+        return this.run(input);
+    }
     /**
      * The main method to run the Parakeet application.
      *
      * @param args Command-line arguments (not used in this application).
      */
-    public static void main(String[] args) {
-        new Parakeet().run();
-    }
+
 
 
 }

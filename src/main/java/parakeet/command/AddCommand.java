@@ -22,5 +22,5 @@ public abstract class AddCommand extends Command {
      * @param ui The UI that will handle the display of messages to the user.
      * @param storage The storage used to save the tasks (not used in all commands).
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 }

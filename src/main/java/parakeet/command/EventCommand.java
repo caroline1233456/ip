@@ -30,13 +30,13 @@ public class EventCommand extends AddCommand {
      * @param storage the storage used to save the tasks (not used in this method).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         Task newEvent = new Event(false, description, startTime, endTime);
         taskList.add(newEvent);
-        ui.printLine();
-        ui.printMessage("Got it. I've added this task: ");
-        ui.printMessage(newEvent.toString());
-        ui.printMessage("Now you have " + taskList.getSize() + " tasks in the list");
-        ui.printLine();
+
+        String response = "Got it. I've added this task: \n" + newEvent.toString() + "\n"
+                + "Now you have " + taskList.getSize()+ " tasks in the list";
+        return response;
+
     }
 }

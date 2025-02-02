@@ -24,11 +24,10 @@ public class MarkCommand extends Command {
      * @param storage the storage used to save the tasks (not used in this method).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.complete(taskIndex);
-        ui.printLine();
-        ui.printMessage("Nice! I've marked this task as done: ");
-        ui.printMessage(taskList.print(taskIndex));
-        ui.printLine();
+        String response = "Nice! I've marked this task as done: \n" + taskList.print(taskIndex);
+        return response;
+
     }
 }

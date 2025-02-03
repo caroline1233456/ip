@@ -26,6 +26,9 @@ public class DialogBox extends HBox {
         this.setAlignment(Pos.TOP_RIGHT);
     }
 
+    /**
+     *Flips the dialog box so that image appears to the left of the text
+     */
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -33,9 +36,24 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Gets the dialog box of the user
+     *
+     * @param s User's input.
+     * @param i User image.
+     * @return Dialog box with user input appears on the left and user image on the right.
+     */
     public static DialogBox getUserDialog(String s, Image i) {
         return new DialogBox(s, i);
     }
+
+    /**
+     * Gets the dialog box of parakeet
+     *
+     * @param s the response of parakeet.
+     * @param i the image of parakeet.
+     * @return the dialog box of parakeet with text appears to the right of image.
+     */
 
     public static DialogBox getParakeetDialog(String s, Image i) {
         var db = new DialogBox(s, i);

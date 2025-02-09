@@ -45,6 +45,7 @@ public class Parakeet {
      * - Terminates when the ExitCommand is issued
      */
     public String run(String input) {
+
            String command = input;
             try {
                 Command parsedCommand = parser.parse(command);
@@ -53,8 +54,6 @@ public class Parakeet {
             } catch(InvalidInputError error) {
                return error.getMessage();
             }
-            
-
     }
 
 

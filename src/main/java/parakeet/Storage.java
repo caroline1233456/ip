@@ -79,6 +79,12 @@ public class Storage {
             //all the task regardless of type follows format: type|complete|description|start date|endDate
             String timeTwo = components[4].trim();
 
+            assert !taskType.isEmpty():"task type can not be empty";
+            assert !description.isEmpty():"task description can not be empty";
+            assert !timeOne.isEmpty():"time one cannot be empty";
+            assert !timeTwo.isEmpty():"time two can not be empty";
+
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
 

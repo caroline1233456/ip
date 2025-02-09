@@ -3,7 +3,6 @@ package parakeet.command;
 
 import parakeet.Storage;
 import parakeet.TaskList;
-import parakeet.Ui;
 import parakeet.task.Task;
 import parakeet.task.Todo;
 public class TodoCommand extends AddCommand {
@@ -21,11 +20,10 @@ public class TodoCommand extends AddCommand {
      * and the total number of tasks.
      *
      * @param taskList the list of tasks to add the Todo task to.
-     * @param ui the UI that handles the display of messages to the user.
-     * @param storage the storage used to save the tasks (not used in this method).
+     * @param storage  the storage used to save the tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         Task newTask = new Todo(false, this.taskDescription);
         taskList.add(newTask);
 

@@ -1,7 +1,6 @@
 package parakeet;
 
 import parakeet.command.Command;
-import parakeet.command.ExitCommand;
 
 
 import java.nio.file.Path;
@@ -25,9 +24,8 @@ public class Parakeet {
     private Storage storage;
     private Parser parser;
     private TaskList taskList;
-    private Ui ui;
+
     public Parakeet() {
-        this.ui = new Ui();
         this.taskList = new TaskList();
         Path path = Paths.get("data", "parakeet.txt");
         this.storage = new Storage(path);
@@ -49,11 +47,12 @@ public class Parakeet {
            String command = input;
             try {
                 Command parsedCommand = parser.parse(command);
-                return parsedCommand.execute(taskList, ui, storage);
+                return parsedCommand.execute(taskList, storage);
 
             } catch(InvalidInputError error) {
                return error.getMessage();
             }
+            
     }
 
 

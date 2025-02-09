@@ -45,17 +45,14 @@ public class Parakeet {
      * - Terminates when the ExitCommand is issued
      */
     public String run(String input) {
-           String command = input;
-            try {
-                Command parsedCommand = parser.parse(command);
-                return parsedCommand.execute(taskList, ui, storage);
+        String command = input;
+        try {
+            Command parsedCommand = parser.parse(command);
+            return parsedCommand.execute(taskList, ui, storage);
 
-            } catch(InvalidInputError error) {
-               return error.getMessage();
-            }
-
-
-
+        } catch(InvalidInputError error) {
+            return error.getMessage();
+        }
     }
 
 

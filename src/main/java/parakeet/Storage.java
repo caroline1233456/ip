@@ -79,6 +79,12 @@ public class Storage {
             String timeOne = components[3].trim();
             String timeTwo = components[4].trim();
 
+            assert !taskType.isEmpty():"task type can not be empty";
+            assert !description.isEmpty():"task description can not be empty";
+            assert !timeOne.isEmpty():"time one cannot be empty";
+            assert !timeTwo.isEmpty():"time two can not be empty";
+
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
 

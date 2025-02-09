@@ -1,11 +1,8 @@
 package parakeet.command;
 
-import parakeet.command.AddCommand;
-
 import java.time.LocalDateTime;
 import parakeet.Storage;
 import parakeet.TaskList;
-import parakeet.Ui;
 import parakeet.task.Event;
 import parakeet.task.Task;
 public class EventCommand extends AddCommand {
@@ -26,11 +23,10 @@ public class EventCommand extends AddCommand {
      * the details of the new task and the total number of tasks.
      *
      * @param taskList the list of tasks to add the event to.
-     * @param ui the UI that handles the display of messages to the user.
-     * @param storage the storage used to save the tasks (not used in this method).
+     * @param storage  the storage used to save the tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         Task newEvent = new Event(false, description, startTime, endTime);
         taskList.add(newEvent);
 

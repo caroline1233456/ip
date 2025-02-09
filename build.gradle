@@ -51,5 +51,6 @@ shadowJar {
 }
 
 run{
+    jvmArgs = ['-ea']  // Enable assertions
     standardInput = System.in
 }

@@ -71,12 +71,12 @@ public class Storage {
         while(this.scanner.hasNextLine()) {
             String line = scanner.nextLine();
 
+            //all the task regardless of type follows format: type|complete|description|start date|endDate
             String[] components = line.split("\\|");
             String taskType = components[0].trim();
             boolean isCompleted = components[1].trim().equals("1");//completed is 1 and not completed is 0
             String description = components[2].trim();
             String timeOne = components[3].trim();
-            //all the task regardless of type follows format: type|complete|description|start date|endDate
             String timeTwo = components[4].trim();
 
             assert !taskType.isEmpty():"task type can not be empty";

@@ -2,7 +2,7 @@ package parakeet.command;
 
 import parakeet.Storage;
 import parakeet.TaskList;
-import parakeet.Ui;
+
 public class ExitCommand extends Command {
 
     public ExitCommand() {
@@ -16,11 +16,10 @@ public class ExitCommand extends Command {
      * Finally, it closes the scanner used for user input.
      *
      * @param taskList the list of tasks to be saved.
-     * @param ui the UI that handles the display of messages to the user.
-     * @param storage the storage used to save the tasks.
+     * @param storage  the storage used to save the tasks.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         storage.writeToFile(taskList);
         String response = "Bye. Hope to see you again soon! \nTask list has been saved";
         return response;

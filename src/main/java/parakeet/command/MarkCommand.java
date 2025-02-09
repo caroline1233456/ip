@@ -2,7 +2,6 @@ package parakeet.command;
 
 import parakeet.Storage;
 import parakeet.TaskList;
-import parakeet.Ui;
 
 
 public class MarkCommand extends Command {
@@ -20,11 +19,10 @@ public class MarkCommand extends Command {
      * then prints a confirmation message to the user, showing the task that was marked as done.
      *
      * @param taskList the list of tasks where the task will be marked as completed.
-     * @param ui the UI that handles the display of messages to the user.
-     * @param storage the storage used to save the tasks (not used in this method).
+     * @param storage  the storage used to save the tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         taskList.complete(taskIndex);
         String response = "Nice! I've marked this task as done: \n" + taskList.print(taskIndex);
         return response;

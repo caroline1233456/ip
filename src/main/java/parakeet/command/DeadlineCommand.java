@@ -34,6 +34,9 @@ public class DeadlineCommand extends AddCommand {
         taskList.add(newDeadline);
         String response = "Got it. I've added this task: \n" + newDeadline.toString() + "\n"
                 + "Now you have " + taskList.getSize()+ " tasks in the list";
+
+        assert !response.isEmpty():"respone can not be empty";
+        
         return response;
     }
 }

@@ -34,10 +34,13 @@ public class StorageTest {
         Task event = new Event(false, "Team meeting",
                 LocalDateTime.of(2024, 2, 1, 14, 0),
                 LocalDateTime.of(2024, 2, 1, 16, 0));
-
-        taskList.add(todo);
-        taskList.add(deadline);
-        taskList.add(event);
+        try {
+            taskList.add(todo);
+            taskList.add(deadline);
+            taskList.add(event);
+        } catch (DuplicateTaskError e) {
+            assert false;
+        }
 
 
         storage.writeToFile(taskList);

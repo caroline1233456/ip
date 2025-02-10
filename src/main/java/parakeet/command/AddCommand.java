@@ -1,6 +1,7 @@
 package parakeet.command;
 
 
+import parakeet.DuplicateTaskError;
 import parakeet.TaskList;
 import parakeet.Storage;
 
@@ -20,5 +21,5 @@ public abstract class AddCommand extends Command {
      * @param taskList The list of tasks to which the new task will be added.
      * @param storage  The storage used to save the tasks (not used in all commands).
      */
-    public abstract String execute(TaskList taskList, Storage storage);
+    public abstract String execute(TaskList taskList, Storage storage) throws DuplicateTaskError;
 }

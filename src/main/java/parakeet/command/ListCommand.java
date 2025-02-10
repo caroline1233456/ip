@@ -1,6 +1,7 @@
 package parakeet.command;
 
 
+import parakeet.DuplicateTaskError;
 import parakeet.Storage;
 import parakeet.TaskList;
 
@@ -17,7 +18,7 @@ public class ListCommand extends Command {
      * @param storage  the storage used to save the tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws DuplicateTaskError {
         String response = taskList.toString();
         return response;
     }

@@ -1,5 +1,6 @@
 package parakeet.command;
 
+import parakeet.DuplicateTaskError;
 import parakeet.Storage;
 import parakeet.TaskList;
 import parakeet.task.Deadline;
@@ -26,7 +27,7 @@ public class DeadlineCommand extends AddCommand {
      * @param storage  the storage used to save the tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws DuplicateTaskError {
         Task newDeadline = new Deadline(false, description, deadline);
         taskList.add(newDeadline);
         String response = "Got it. I've added this task: \n" + newDeadline.toString() + "\n"

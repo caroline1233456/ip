@@ -20,6 +20,10 @@ public class Deadline extends Task {
                 +  this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + " | 0 ";
         return str;
     }
+
+    public boolean checkSameTime(Deadline task) {
+        return task.deadline.equals(this.deadline);
+    }
     @Override
     public String toString() {
         String str = "[D]";

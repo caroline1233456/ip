@@ -1,7 +1,10 @@
 package parakeet.command;
 
+import parakeet.DuplicateTaskError;
 import parakeet.Storage;
 import parakeet.TaskList;
+
+import java.time.DateTimeException;
 
 public class FindCommand extends Command {
 
@@ -12,7 +15,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws DuplicateTaskError {
         TaskList subList = taskList.find(this.keyword);
         String response = subList.toString();
         return response;

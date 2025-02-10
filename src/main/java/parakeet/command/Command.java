@@ -1,5 +1,6 @@
 package parakeet.command;
 
+import parakeet.DuplicateTaskError;
 import parakeet.Storage;
 import parakeet.TaskList;
 
@@ -18,5 +19,5 @@ public abstract class Command {
      * @param taskList The list of tasks on which the command will be executed.
      * @param storage  The storage that may be used to persist task data (not used in all commands).
      */
-    public abstract String execute(TaskList taskList, Storage storage);
+    public abstract String execute(TaskList taskList, Storage storage) throws DuplicateTaskError;
 }

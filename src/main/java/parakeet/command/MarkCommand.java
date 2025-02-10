@@ -1,5 +1,6 @@
 package parakeet.command;
 
+import parakeet.DuplicateTaskError;
 import parakeet.Storage;
 import parakeet.TaskList;
 
@@ -22,7 +23,7 @@ public class MarkCommand extends Command {
      * @param storage  the storage used to save the tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws DuplicateTaskError {
         taskList.complete(taskIndex);
         String response = "Nice! I've marked this task as done: \n" + taskList.print(taskIndex);
         return response;

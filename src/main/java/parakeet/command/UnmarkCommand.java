@@ -1,6 +1,7 @@
 package parakeet.command;
 
 
+import parakeet.DuplicateTaskError;
 import parakeet.Storage;
 import parakeet.TaskList;
 
@@ -18,7 +19,7 @@ public class UnmarkCommand extends Command {
      * @param storage  The storage used to save the tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws DuplicateTaskError {
         taskList.unDone(taskIndex);
 
         String response = "Ok, I've marked this task as not done yet: \n" + taskList.print(taskIndex);

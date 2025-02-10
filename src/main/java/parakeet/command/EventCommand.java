@@ -1,6 +1,9 @@
 package parakeet.command;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
+
+import parakeet.DuplicateTaskError;
 import parakeet.Storage;
 import parakeet.TaskList;
 import parakeet.task.Event;
@@ -26,7 +29,7 @@ public class EventCommand extends AddCommand {
      * @param storage  the storage used to save the tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws DuplicateTaskError {
         Task newEvent = new Event(false, description, startTime, endTime);
         taskList.add(newEvent);
 

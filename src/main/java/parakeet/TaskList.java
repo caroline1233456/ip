@@ -23,6 +23,7 @@ public class TaskList {
      * @param index the index in taskList.
      */
     public void complete(int index) {
+
         this.taskList.get(index).complete();
     }
 
@@ -32,6 +33,7 @@ public class TaskList {
      * @param index the index the task is at in taskList.
      */
     public void unDone(int index) {
+
         this.taskList.get(index).unDone();
     }
 
@@ -54,6 +56,7 @@ public class TaskList {
      * @return the string representation of the task at the specified index.
      */
     public String print(int index) {
+
         return this.taskList.get(index).toString();
     }
 
@@ -71,7 +74,10 @@ public class TaskList {
      *
      * @param newTask the task to be added to the list.
      */
-    public void add(Task newTask) {
+    public void add(Task newTask) throws DuplicateTaskError {
+        if (checkDuplicate(newTask)) {
+            throw new DuplicateTaskError("Task with same type, same description and same time can not be added twice.");
+        }
         this.taskList.add(newTask);
     }
 
@@ -93,12 +99,25 @@ public class TaskList {
         TaskList subList = new TaskList();
         for(int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).contains(keyword)) {
-                subList.add(taskList.get(i));
+                try {
+                    subList.add(taskList.get(i));
+                } catch (DuplicateTaskError e) {
+                    System.out.println("Duplicate task in find method");
+                }
             }
         }
         return subList;
     }
 
+    public boolean checkDuplicate(Task newTask) {
+        for (int i = 0; i < taskList.size(); i++) {
+
+            if (taskList.get(i).checkDuplicate(newTask)) {
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public String toString() {
         String str = "";

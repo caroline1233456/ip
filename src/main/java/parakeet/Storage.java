@@ -90,16 +90,28 @@ public class Storage {
 
             if (taskType.equals("T")) {
                 Task newTask = new Todo(isCompleted, description);
-                taskList.add(newTask);
+                try {
+                    taskList.add(newTask);
+                } catch (DuplicateTaskError e) {
+                    System.out.println("Error, Writing to file : duplicate occured");
+                }
             } else if (taskType.equals("D")) {
                 LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
                 Task newTask = new Deadline(isCompleted, description, timeOneDate);
-                taskList.add(newTask);
+                try {
+                    taskList.add(newTask);
+                } catch (DuplicateTaskError e) {
+                    System.out.println("Error, Writing to file : duplicate occured");
+                }
             } else if (taskType.equals("E")) {
                 LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
                 LocalDateTime timeTwoDate = LocalDateTime.parse(timeTwo, formatter);
                 Task newTask = new Event(isCompleted, description, timeOneDate, timeTwoDate);
-                taskList.add(newTask);
+                try {
+                    taskList.add(newTask);
+                } catch (DuplicateTaskError e) {
+                    System.out.println("Error, Writing to file : duplicate occured");
+                }
             } else {
                 System.out.println("Error, no event type");
             }

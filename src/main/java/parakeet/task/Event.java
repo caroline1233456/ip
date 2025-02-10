@@ -22,6 +22,9 @@ public class Event extends Task {
                 + this.to. format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
         return str;
     }
+    public boolean checkSameTime(Event task) {
+        return task.from.equals(this.from) && this.to.equals(task.to);
+    }
 
     @Override
     public String toString() {

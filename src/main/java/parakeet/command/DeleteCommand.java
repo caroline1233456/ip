@@ -1,8 +1,11 @@
 package parakeet.command;
 
+import parakeet.DuplicateTaskError;
 import parakeet.Storage;
 import parakeet.TaskList;
 import parakeet.task.Task;
+
+import java.time.DateTimeException;
 
 
 public class DeleteCommand extends Command {
@@ -19,7 +22,7 @@ public class DeleteCommand extends Command {
      * @param storage  The storage used to save the tasks (not used in this method).
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws DuplicateTaskError {
         Task deletedTask = taskList.delete(taskIndex);
         String response = "Noted. I've removed this task: \n" + deletedTask.toString() + "\n"
                 + "Now you have " + taskList.getSize()+ " tasks in the list";

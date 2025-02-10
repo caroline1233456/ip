@@ -1,5 +1,6 @@
 package parakeet.command;
 
+import parakeet.DuplicateTaskError;
 import parakeet.Storage;
 import parakeet.TaskList;
 
@@ -19,7 +20,7 @@ public class ExitCommand extends Command {
      * @param storage  the storage used to save the tasks.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws DuplicateTaskError {
         storage.writeToFile(taskList);
         String response = "Bye. Hope to see you again soon! \nTask list has been saved";
         return response;

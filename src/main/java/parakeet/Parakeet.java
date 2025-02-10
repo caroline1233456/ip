@@ -48,7 +48,7 @@ public class Parakeet {
                 Command parsedCommand = parser.parse(command);
                 return parsedCommand.execute(taskList, storage);
 
-            } catch(InvalidInputError error) {
+            } catch (Exception error) {
                return error.getMessage();
             }
 

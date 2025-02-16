@@ -1,8 +1,0 @@
-E | 1 | meeting 1 | Jan 31 2025 16:00 | Jan 31 2025 17:00
-D | 0 | project | Jan 02 2027 12:59 | 0 
-E | 0 | meeting 3 | Jan 12 2025 12:00 | Jan 12 2025 16:45
-D | 0 | ip | Feb 06 2025 16:50 | 0 
-T | 0 | perfume making workshop | 0 | 0 
-D | 0 | meeting3 | Jan 19 2024 12:50 | 0 
-E | 0 | weekly meeting | Feb 21 2025 19:26 | Feb 21 2025 19:59
-E | 0 | weekly meeting | Mar 12 2025 12:30 | Mar 15 2025 19:30

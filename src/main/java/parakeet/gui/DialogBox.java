@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+
 public class DialogBox extends HBox {
 
     private Label text;
@@ -17,7 +18,7 @@ public class DialogBox extends HBox {
     public DialogBox(String s, Image i) {
         text = new Label(s);
         displayPicture = new ImageView(i);
-        this.getChildren().addAll(text, displayPicture); text.setWrapText(true);
+        this.getChildren().addAll(text, displayPicture);
 
 
         text.setWrapText(true);

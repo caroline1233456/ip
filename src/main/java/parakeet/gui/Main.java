@@ -11,7 +11,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import parakeet.Parakeet;
-import parakeet.command.ExitCommand;
+
 
 
 public class Main extends Application {
@@ -37,7 +37,7 @@ public class Main extends Application {
 
         dialogContainer.getChildren()
                 .addAll(DialogBox
-                        .getParakeetDialog("Hello! I'm parakeet.Parakeet\n What can I do for you?",
+                        .getParakeetDialog("Hello! I'm Parakeet. \n What can I do for you?",
                                 parakeetImage));
 
 

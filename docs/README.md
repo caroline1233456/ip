@@ -1,7 +1,7 @@
 # Parakeet User Guide
 
 
-Parakeet is a chatbox that can help you manage your task easily. It has GUI.
+Parakeet is a chatbox that can help you manage your task easily.
 
 
 ## Feature: Adding a todo task
@@ -26,11 +26,7 @@ Format: `deadline DESCRIPTION /by DATE (yyyy-mm-dd HH:mm)`
 Example: `deadline individual project /by 2025-02-21 16:59`
 
 
-// A description of the expected outcome goes here
 
-```
-expected output
-```
 
 ## Feature: Adding an event task
 Add `event` task to the task list.

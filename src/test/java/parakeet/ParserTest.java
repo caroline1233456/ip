@@ -83,7 +83,7 @@ public class ParserTest {
             Command commandTwo = parser.parse("todo");
             fail("When given invalid todo command, no exception is thrown.");
         } catch (InvalidInputError e ){
-            assertEquals("Sorry, the description of todo can not be empty", e.getMessage());
+            assertEquals("Sorry, the description can not be empty", e.getMessage());
         }
     }
 
@@ -156,7 +156,7 @@ public class ParserTest {
             Command command = parser.parse("event  ");
             fail();
         } catch (InvalidInputError e) {
-            assertEquals("Sorry, the description of event can not be empty"
+            assertEquals("Sorry, the description can not be empty"
                     , e.getMessage());
         }
     }

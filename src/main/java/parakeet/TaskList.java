@@ -38,7 +38,7 @@ public class TaskList {
     }
 
     /**
-     *Deletes the task at specific index
+     * Deletes the task at specific index
      *
      * @param index the index of the  task to be deleted.
      * @return the task deleted.

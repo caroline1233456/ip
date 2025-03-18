@@ -88,33 +88,37 @@ public class Storage {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
 
-            if (taskType.equals("T")) {
-                Task newTask = new Todo(isCompleted, description);
-                try {
-                    taskList.add(newTask);
-                } catch (DuplicateTaskError e) {
-                    System.out.println("Error, Writing to file : duplicate occured");
-                }
-            } else if (taskType.equals("D")) {
-                LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
-                Task newTask = new Deadline(isCompleted, description, timeOneDate);
-                try {
-                    taskList.add(newTask);
-                } catch (DuplicateTaskError e) {
-                    System.out.println("Error, Writing to file : duplicate occured");
-                }
-            } else if (taskType.equals("E")) {
-                LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
-                LocalDateTime timeTwoDate = LocalDateTime.parse(timeTwo, formatter);
-                Task newTask = new Event(isCompleted, description, timeOneDate, timeTwoDate);
-                try {
-                    taskList.add(newTask);
-                } catch (DuplicateTaskError e) {
-                    System.out.println("Error, Writing to file : duplicate occured");
-                }
-            } else {
-                System.out.println("Error, no event type");
+            createTask(taskList, taskType, isCompleted, description, timeOne, formatter, timeTwo);
+        }
+    }
+
+    private static void createTask(TaskList taskList, String taskType, boolean isCompleted, String description, String timeOne, DateTimeFormatter formatter, String timeTwo) {
+        if (taskType.equals("T")) {
+            Task newTask = new Todo(isCompleted, description);
+            try {
+                taskList.add(newTask);
+            } catch (DuplicateTaskError e) {
+                System.out.println("Error, Writing to file : duplicate occured");
             }
+        } else if (taskType.equals("D")) {
+            LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
+            Task newTask = new Deadline(isCompleted, description, timeOneDate);
+            try {
+                taskList.add(newTask);
+            } catch (DuplicateTaskError e) {
+                System.out.println("Error, Writing to file : duplicate occured");
+            }
+        } else if (taskType.equals("E")) {
+            LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
+            LocalDateTime timeTwoDate = LocalDateTime.parse(timeTwo, formatter);
+            Task newTask = new Event(isCompleted, description, timeOneDate, timeTwoDate);
+            try {
+                taskList.add(newTask);
+            } catch (DuplicateTaskError e) {
+                System.out.println("Error, Writing to file : duplicate occured");
+            }
+        } else {
+            System.out.println("Error, no event type");
         }
     }
 

@@ -1,4 +1,4 @@
-Parakeet User Guide
+# Parakeet User Guide
 
 
 Parakeet is a **chatbot** that can help you manage your task easily. It can help you manage **todo**, **deadline** and **event**.

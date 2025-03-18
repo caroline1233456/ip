@@ -93,7 +93,6 @@ public class Parser {
             //check if time and description are given
             throw new InvalidInputError("Sorry, this is invalid input, you need to provide description and exact time");
         }
-
             //valid input:
             //extract all the date and description of task
         String from = matcherFrom.group(1).trim();
@@ -243,7 +242,7 @@ public class Parser {
         return new UnmarkCommand(taskIndex);
     }
 
-    private static MarkCommand getMarkCommand(String command) {
+    private static MarkCommand getMarkCommand(String command) throws InvalidInputError {
         int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
         return new MarkCommand(taskIndex);
     }

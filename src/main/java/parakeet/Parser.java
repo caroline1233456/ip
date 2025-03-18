@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
  * <p>It parses input for task descriptions, dates, and times, and ensures that
  * all necessary information is provided in the correct format.</p>
  *
- * @author Your Name
+ * @author Yang Qingru
  * @version 1.0
  * @since 2025-01-29
  */
@@ -42,11 +42,12 @@ public class Parser {
      * - "delete" for deleting a task
      * - "todo", "deadline", and "event" for adding tasks
      *
-     * @param command The input command string to be parsed.
+     * @param inputCommand The input command string to be parsed.
      * @return The Command object corresponding to the parsed input.
      * @throws InvalidInputError If the command is invalid or in an incorrect format.
      */
-    public Command parse(String command) throws InvalidInputError {
+    public Command parse(String inputCommand) throws InvalidInputError {
+        String command = inputCommand.trim();
         if (command.equalsIgnoreCase("bye")) {
             return getExitCommand();
         }else if (command.equalsIgnoreCase("list")) {
@@ -83,9 +84,7 @@ public class Parser {
         String processedCommand = processCommand(command);
 
         Matcher matcherDescription = getEventDescription(processedCommand);
-
         Matcher matcherFrom = getStartDate(processedCommand);
-
         Matcher matcherTo = getEndDate(processedCommand);
 
         boolean isValidInput = matcherFrom.find() && matcherTo.find() && matcherDescription.find();
@@ -190,7 +189,6 @@ public class Parser {
 
         Pattern patternDescription = Pattern.compile(eventDescriptionRegex);
 
-
         Matcher matcherDescription = patternDescription.matcher(processedCommand);
         return matcherDescription;
     }
@@ -203,7 +201,7 @@ public class Parser {
     }
 
     private static String processCommand(String command) throws InvalidInputError {
-        //split the command , remove the word deadline
+        //split the command , remove command word
         String[] splitCom = Arrays.copyOfRange(command.split(" "),1,
                 command.split(" ").length);
         String commandOne= String.join(" ", splitCom);

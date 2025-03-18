@@ -33,13 +33,13 @@ Table of content:
 - `todo interview`: Add interview as a todo.
 - `event project meeting /from 2025-03-18 12:00 /to 2025-03-18 14:00`: Add project meeting as an event.
 - `list` : list all the tasks in the task list.
-- `unmark 1`: Unmark the 1st task as not yet completed.
+- `unmark 1`: Unmark the first task as not yet completed.
 - `delete 1`: Delete the first task.
 - `bye`: Exits the app.
 6. Refer to the Features below for details of each command
 
 ## Feature:
-### Adding a todo task
+## Adding a todo task
 
 Add `todo` task to the list of tasks.
 - Task with the same description and type(i.e: both of type `todo`) can not be added twice
@@ -49,7 +49,7 @@ Format: `todo DESCRIPTION`
 Example: `todo go shopping`
 
 
-### Adding a deadline task
+## Adding a deadline task
 
 Add a `deadline` task to the task list.
 

@@ -12,10 +12,10 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Marks the task at the specified index as completed.
-     * Sends a confirmation message displaying the task marked as done.
+     * Unmarks the task at the specified index as completed.
+     * Sends a confirmation message displaying the task unmarked as done.
      *
-     * @param taskList List of tasks where the task is to be marked as completed.
+     * @param taskList List of tasks where the task is to be unmarked as completed.
      * @param storage  The storage used to save the tasks (not used in this method).
      */
     @Override

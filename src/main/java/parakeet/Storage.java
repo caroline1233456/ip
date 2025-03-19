@@ -70,55 +70,64 @@ public class Storage {
     public void readFromFile(TaskList taskList) {
         while(this.scanner.hasNextLine()) {
             String line = scanner.nextLine();
+            TaskInfo taskInfo = extractTaskInfo(line);
 
-            //all the task regardless of type follows format: type|complete|description|start date|endDate
-            String[] components = line.split("\\|");
-            String taskType = components[0].trim();
-            boolean isCompleted = components[1].trim().equals("1");//completed is 1 and not completed is 0
-            String description = components[2].trim();
-            String timeOne = components[3].trim();
-            String timeTwo = components[4].trim();
-
-            assert !taskType.isEmpty():"task type can not be empty";
-            assert !description.isEmpty():"task description can not be empty";
-            assert !timeOne.isEmpty():"time one cannot be empty";
-            assert !timeTwo.isEmpty():"time two can not be empty";
-
+            assert !taskInfo.taskType().isEmpty():"task type can not be empty";
+            assert !taskInfo.description().isEmpty():"task description can not be empty";
+            assert !taskInfo.timeOne().isEmpty():"time one cannot be empty";
+            assert !taskInfo.timeTwo().isEmpty():"time two can not be empty";
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-
-
-            createTask(taskList, taskType, isCompleted, description, timeOne, formatter, timeTwo);
+            createTask(taskList, taskInfo.taskType(), taskInfo.isCompleted(), taskInfo.description(),
+                    taskInfo.timeOne(), formatter, taskInfo.timeTwo());
         }
     }
 
-    private static void createTask(TaskList taskList, String taskType, boolean isCompleted, String description, String timeOne, DateTimeFormatter formatter, String timeTwo) {
+    private static TaskInfo extractTaskInfo(String line) {
+        //all the task regardless of type follows format: type|complete|description|start date|endDate
+        String[] components = line.split("\\|");
+        String taskType = components[0].trim();
+        boolean isCompleted = components[1].trim().equals("1");//completed is 1 and not completed is 0
+        String description = components[2].trim();
+        String timeOne = components[3].trim();
+        String timeTwo = components[4].trim();
+        return new TaskInfo(taskType, isCompleted, description, timeOne, timeTwo);
+    }
+
+    private record TaskInfo(String taskType, boolean isCompleted, String description, String timeOne, String timeTwo) {
+    }
+
+    private static void createTask(TaskList taskList, String taskType, boolean isCompleted,
+
+                                   String description, String timeOne, DateTimeFormatter formatter, String timeTwo) {
+        boolean isValidType = taskType.equals("T") || taskType.equals("D") || taskType.equals("E");
+        if (!isValidType) {
+            System.out.println("Error, no event type");
+            return;
+        }
+        //valid task type:
         if (taskType.equals("T")) {
             Task newTask = new Todo(isCompleted, description);
-            try {
-                taskList.add(newTask);
-            } catch (DuplicateTaskError e) {
-                System.out.println("Error, Writing to file : duplicate occured");
-            }
-        } else if (taskType.equals("D")) {
+            addToTaskList(taskList, newTask);
+        }
+        if (taskType.equals("D")) {
             LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
             Task newTask = new Deadline(isCompleted, description, timeOneDate);
-            try {
-                taskList.add(newTask);
-            } catch (DuplicateTaskError e) {
-                System.out.println("Error, Writing to file : duplicate occured");
-            }
-        } else if (taskType.equals("E")) {
+            addToTaskList(taskList, newTask);
+        }
+        if (taskType.equals("E")) {
             LocalDateTime timeOneDate = LocalDateTime.parse(timeOne, formatter);
             LocalDateTime timeTwoDate = LocalDateTime.parse(timeTwo, formatter);
             Task newTask = new Event(isCompleted, description, timeOneDate, timeTwoDate);
-            try {
-                taskList.add(newTask);
-            } catch (DuplicateTaskError e) {
-                System.out.println("Error, Writing to file : duplicate occured");
-            }
-        } else {
-            System.out.println("Error, no event type");
+            addToTaskList(taskList, newTask);
+        }
+    }
+
+    private static void addToTaskList(TaskList taskList, Task newTask) {
+        try {
+            taskList.add(newTask);
+        } catch (DuplicateTaskError e) {
+            System.out.println("Error, Writing to file : duplicate occured");
         }
     }
 
@@ -134,20 +143,12 @@ public class Storage {
      */
     public void writeToFile(TaskList taskList) {
         try {
-
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.file, false));
-
-            // Write the content to the file
             writer.write(taskList.convertToFileFormat());
-            // Flush and close the writer to ensure data is written
             writer.flush(); // This ensures the data is actually written to the file
             writer.close(); // Close
         } catch (IOException e) {
             System.out.println("Error: writing tasklist to file");
         }
-
-
     }
-
-
 }

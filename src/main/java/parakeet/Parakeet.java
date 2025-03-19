@@ -55,17 +55,9 @@ public class Parakeet {
             
     }
 
-
     public String getResponse(String input) {
         return this.run(input);
     }
-    /**
-     * The main method to run the Parakeet application.
-     *
-     * @param args Command-line arguments (not used in this application).
-     */
-
-
 
 }
 

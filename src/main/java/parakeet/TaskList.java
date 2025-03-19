@@ -115,7 +115,6 @@ public class TaskList {
      * @param newTask the task to be added
      * @return  {@code true} if the task is a duplicate, {@code false} otherwise
      */
-
     public boolean checkDuplicate(Task newTask) {
         for (int i = 0; i < taskList.size(); i++) {
 

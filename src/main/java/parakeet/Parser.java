@@ -58,31 +58,34 @@ public class Parser {
             return getUnmarkCommand(command);
         } else if (command.startsWith("delete")) {
             return getDeleteCommand(command);
-
         } else if (command.startsWith("find")){
             return getFindCommand(command);
-
         } else if (command.startsWith(("todo"))) {
             return getTodoCommand(command);
-
         }else if (command.startsWith(("deadline"))) {
             return getDeadlineCommand(command);
-
         } else if (command.startsWith(("event"))) {
-
             return getEventCommand(command);
-
         } else {
             throw new InvalidInputError("Sorry, I don't understand what you mean");
         }
-
-
     }
 
     private static EventCommand getEventCommand(String command) throws InvalidInputError {
-
         String processedCommand = processCommand(command);
+        EventInfo eventInfo = extractEventInfo(processedCommand);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime timeFrom = LocalDateTime.parse(eventInfo.from(), formatter);
+            LocalDateTime timeTo = LocalDateTime.parse(eventInfo.to(), formatter);
+            return new EventCommand(eventInfo.description(), timeFrom, timeTo);
+        } catch (DateTimeException e) {
+            throw new InvalidInputError(
+                    "Error: Invalid date format or invalid date. valid: yyyy-MM-dd HH:mm.");
+        }
+    }
 
+    private static EventInfo extractEventInfo(String processedCommand) throws InvalidInputError {
         Matcher matcherDescription = getEventDescription(processedCommand);
         Matcher matcherFrom = getStartDate(processedCommand);
         Matcher matcherTo = getEndDate(processedCommand);
@@ -93,8 +96,7 @@ public class Parser {
             //check if time and description are given
             throw new InvalidInputError("Sorry, this is invalid input, you need to provide description and exact time");
         }
-            //valid input:
-            //extract all the date and description of task
+        //extract all the date and description of task
         String from = matcherFrom.group(1).trim();
         String to = matcherTo.group(1).trim();
         String description = matcherDescription.group(1).trim();
@@ -102,28 +104,16 @@ public class Parser {
         if (description.isEmpty()) {
             throw new InvalidInputError("Sorry, the description can not be empty");
         }
+        EventInfo eventInfo = new EventInfo(from, to, description);
+        return eventInfo;
+    }
 
-        try {
-            //process the date
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime timeFrom = LocalDateTime.parse(from, formatter);
-            LocalDateTime timeTo = LocalDateTime.parse(to, formatter);
-            return new EventCommand(description, timeFrom, timeTo);
-            
-        } catch (DateTimeException e) {
-            throw new InvalidInputError(
-                    "Error: Invalid date format or invalid date. valid: yyyy-MM-dd HH:mm.");
-
-        }
-
+    private record EventInfo(String from, String to, String description) {
     }
 
     private static Matcher getEndDate(String processedCommand) {
         String toRegex = "/to\\s+(.*)";
-
         Pattern patternT = Pattern.compile(toRegex);
-
-
         Matcher matcherTo = patternT.matcher(processedCommand);
         return matcherTo;
     }
@@ -137,8 +127,6 @@ public class Parser {
 
     private static Matcher getEventDescription(String processedCommand) {
         String eventDescriptionRegex = "^(.*?)(?=\\s*/from|$)";
-
-
         Pattern patternDescription = Pattern.compile(eventDescriptionRegex);
         Matcher matcherDescription = patternDescription.matcher(processedCommand);
         return matcherDescription;
@@ -147,11 +135,20 @@ public class Parser {
 
     private static DeadlineCommand getDeadlineCommand(String command) throws InvalidInputError {
         String processedCommand = processCommand(command);
+        DeadlineInfo deadlineInfo = extractDeadlineInfo(processedCommand);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime deadline = LocalDateTime.parse(deadlineInfo.deadlineTime(), formatter);
+            return new DeadlineCommand(deadlineInfo.description(), deadline);
+        } catch (DateTimeException e) {
+            throw new InvalidInputError("Error: Invalid date format or invalid date." +
+                    " valid: yyyy-MM-dd HH:mm.");
+        }
+    }
 
+    private static DeadlineInfo extractDeadlineInfo(String processedCommand) throws InvalidInputError {
         Matcher matcherDeadline = getDeadline(processedCommand);
-
         Matcher matcherDescription = getDeadlineDescription(processedCommand);
-
 
         boolean isValidInput = matcherDeadline.find() && matcherDescription.find();
 
@@ -160,33 +157,24 @@ public class Parser {
             throw new InvalidInputError("Sorry, this is invalid input," +
                     " you need to provide description and deadline");
         }
-
         String deadlineTime = matcherDeadline.group(1).trim();
         String description = matcherDescription.group(1).trim();
 
         //check for input like "deadline /by Sunday"
         if(description.isEmpty()) {
             throw new InvalidInputError("Sorry, the description can not be empty");
-
         }
 
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime deadline = LocalDateTime.parse(deadlineTime, formatter);
-            return new DeadlineCommand(description, deadline);
+        DeadlineInfo deadlineInfo = new DeadlineInfo(deadlineTime, description);
+        return deadlineInfo;
+    }
 
-        } catch (DateTimeException e) {
-            throw new InvalidInputError("Error: Invalid date format or invalid date." +
-                    " valid: yyyy-MM-dd HH:mm.");
-        }
-
+    private record DeadlineInfo(String deadlineTime, String description) {
     }
 
     private static Matcher getDeadlineDescription(String processedCommand) {
         String eventDescriptionRegex = "^(.*?)(?=\\s*/by|$)";
-
         Pattern patternDescription = Pattern.compile(eventDescriptionRegex);
-
         Matcher matcherDescription = patternDescription.matcher(processedCommand);
         return matcherDescription;
     }
@@ -207,8 +195,8 @@ public class Parser {
         //check for invalid input like "deadline " or "deadline"
         if(splitCom.length == 0 || commandOne.trim().isEmpty()) {
             throw new InvalidInputError("Sorry, the description can not be empty");
-
         }
+
         assert splitCom.length > 0: "the length of description should be greater than zero";
         return commandOne;
     }

@@ -30,23 +30,24 @@ public abstract class Task {
         if (!task.description.equals(this.description)) {
             return false;
         }
-        if(task.taskType != this.taskType) {
+        if (task.taskType != this.taskType) {
             return false;
         }
         //task with same description and type
         if (task.taskType == TaskType.TODO) {
             return true;
-        }else if (task.taskType == TaskType.DEADLINE) {
+        } else if (task.taskType == TaskType.DEADLINE) {
             Deadline convertedTask = (Deadline) task;
             Deadline thisTask = (Deadline) this;
             return thisTask.checkSameTime(convertedTask);
-        }else {
-            assert task.taskType == TaskType.EVENT:"Task class: Invalid Task type";
+        } else if (task.taskType == TaskType.EVENT) {
             Event convertedTask = (Event) task;
             Event thisTask = (Event) this;
             return thisTask.checkSameTime(convertedTask);
+        } else {
+            System.out.println("Error:invalid task type.");
+            return false;
         }
-
     }
     @Override
     public String toString() {

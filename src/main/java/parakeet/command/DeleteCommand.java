@@ -5,8 +5,6 @@ import parakeet.Storage;
 import parakeet.TaskList;
 import parakeet.task.Task;
 
-import java.time.DateTimeException;
-
 
 public class DeleteCommand extends Command {
     private int taskIndex;

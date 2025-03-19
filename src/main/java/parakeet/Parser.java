@@ -116,7 +116,6 @@ public class Parser {
 
         }
 
-
     }
 
     private static Matcher getEndDate(String processedCommand) {
@@ -242,7 +241,7 @@ public class Parser {
         return new UnmarkCommand(taskIndex);
     }
 
-    private static MarkCommand getMarkCommand(String command) throws InvalidInputError {
+    private static MarkCommand getMarkCommand(String command) {
         int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
         return new MarkCommand(taskIndex);
     }

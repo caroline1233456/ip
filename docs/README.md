@@ -12,7 +12,7 @@ Table of content:
     - Listing all tasks: [`list`](#list)
     - Deleting a task: [`delete`](#delete)
     - Mark a task as completed: [`mark`](#mark)
-    - Unmark a task as not yet completed: [`unmark`](#unmark)
+    - Unmark a task as completed: [`unmark`](#unmark)
     - Finding tasks by description: [`find`](#find)
     - Exiting the program: [`bye`](#bye)
 * [Saving the data](#saving-the-data)
@@ -33,7 +33,7 @@ Table of content:
 - `todo interview`: Add interview as a todo.
 - `event project meeting /from 2025-03-18 12:00 /to 2025-03-18 14:00`: Add project meeting as an event.
 - `list` : list all the tasks in the task list.
-- `unmark 1`: Unmark the first task as not yet completed.
+- `unmark 1`: Unmark the first task as completed.
 - `delete 1`: Delete the first task.
 - `bye`: Exits the app.
 6. Refer to the Features below for details of each command
@@ -116,10 +116,10 @@ Format: `mark INDEX`
 Example:`mark 1`
 ## Unmark
 
-Unmarks a specified task as yet to complete
+Unmarks a specified task as completed
 
 Format: `unmark INDEX`
-- Unmarks the task as not completed at the specified INDEX.
+- Unmarks the task as completed at the specified INDEX.
 - The index refers to the index number shown in the displayed task list.
 - The index must be a positive integer 1, 2, 3, …​
 

@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getParakeetDialog(parakeetText, parakeetImage)
         );
 
-        if ("bye".equalsIgnoreCase(userText)) {
+        if ("bye".equalsIgnoreCase(userText.trim())) {
             System.out.println("Exit the program...");
             Platform.exit();
         }
